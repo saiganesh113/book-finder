@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaMoon, FaSun } from 'react-icons/fa'; // Import icons from react-icons
+
 import SearchBar from './components/SearchBar';
 import BookList from './components/BookList';
 
 const App = () => {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false); // State for Dark Mode
 
   const fetchBooks = async (query) => {
     try {
@@ -20,49 +22,55 @@ const App = () => {
     }
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-  };
+  const toggleDarkMode = () => setIsDarkMode(!isDarkMode); // Toggle function for Dark Mode
 
   return (
-    <div className={isDarkMode ? 'dark' : ''}>
-      <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white dark:bg-gray-900 dark:text-gray-100">
-        <header className="py-8 text-center">
-          <h1 className="text-5xl font-bold tracking-wide drop-shadow-md">
-            📚 Book Finder
-          </h1>
-          <p className="text-lg mt-2 opacity-80">
-            Discover your next read with ease
-          </p>
-        </header>
+    <div
+      className={`min-h-screen ${
+        isDarkMode
+          ? 'bg-gray-900 text-white'
+          : 'bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white'
+      }`}
+    >
+      {/* Floating Dark Mode Toggle Button */}
+      <button
+        onClick={toggleDarkMode}
+        className={`fixed right-6 top-1/3 transform -translate-y-1/2 p-3 rounded-full shadow-lg transition ${
+          isDarkMode
+            ? 'bg-yellow-400 hover:bg-yellow-300 text-gray-900'
+            : 'bg-blue-600 hover:bg-blue-500 text-white'
+        }`}
+      >
+        {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+      </button>
 
-        <main className="max-w-5xl mx-auto px-6">
-          <SearchBar onSearch={fetchBooks} />
-          {error && (
-            <p className="text-red-300 text-center mt-4 animate-pulse">
-              {error}
-            </p>
-          )}
-          <BookList books={books} />
-        </main>
+      {/* Header */}
+      <header className="py-8 text-center">
+        <h1 className="text-5xl font-bold tracking-wide drop-shadow-md">
+          📚 Book Finder
+        </h1>
+        <p className="text-lg mt-2 opacity-80">Discover your next read with ease</p>
+      </header>
 
-        {/* Theme Toggle Button */}
-        <div className="fixed bottom-20 right-8">
-          <button
-            onClick={toggleTheme}
-            className="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-3 rounded-full shadow-lg hover:scale-105 transition transform"
-            aria-label="Toggle Theme"
-          >
-            {isDarkMode ? ☀️ : 🌙 }
-          </button>
-        </div>
+      {/* Main Content */}
+      <main className="max-w-5xl mx-auto px-6">
+        <SearchBar onSearch={fetchBooks} />
+        {error && (
+          <p className="text-red-300 text-center mt-4 animate-pulse">{error}</p>
+        )}
+        <BookList books={books} />
+      </main>
 
-        <footer className="mt-10 py-6 text-center bg-gray-900 dark:bg-gray-800">
-          <p className="text-gray-400">
-            &copy; 2024 Book Finder | Made with ❤️ by Eduru Venkata Sai Ganesh.
-          </p>
-        </footer>
-      </div>
+      {/* Footer */}
+      <footer
+        className={`mt-10 py-6 text-center ${
+          isDarkMode ? 'bg-gray-800 text-gray-400' : 'bg-gray-900 text-gray-400'
+        }`}
+      >
+        <p>
+          &copy; 2024 Book Finder | Made with ❤ by <span className="font-semibold">Kushwi</span>
+        </p>
+      </footer>
     </div>
   );
 };
