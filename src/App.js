@@ -68,7 +68,7 @@ const App = () => {
         }`}
       >
         <p>
-          &copy; 2024 Book Finder | Made with ❤ by <span className="font-semibold">Kushwi</span>
+          &copy; 2024 Book Finder | Made with ❤ by <span className="font-semibold">Eduru Venkata Sai Ganesh</span>
         </p>
       </footer>
     </div>
