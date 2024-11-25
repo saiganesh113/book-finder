@@ -42,7 +42,7 @@ const App = () => {
 
       <footer className="mt-10 py-6 text-center bg-gray-900">
         <p className="text-gray-400">
-          &copy; 2024 Book Finder | Made with ❤️ by Gane
+          &copy; 2024 Book Finder | Made with ❤️ by Eduru Venkata Sai Ganesh.
         </p>
       </footer>
     </div>
