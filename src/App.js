@@ -6,6 +6,7 @@ import BookList from './components/BookList';
 const App = () => {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const fetchBooks = async (query) => {
     try {
@@ -17,9 +18,14 @@ const App = () => {
     } catch (err) {
       setError('Error fetching books. Please try again.');
     }
-  };  
+  }; 
+  
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
 
   return (
+    <div className={isDarkMode ? 'dark' : ''}>
     <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white">
       <header className="py-8 text-center">
         <h1 className="text-5xl font-bold tracking-wide drop-shadow-md">
@@ -29,6 +35,13 @@ const App = () => {
           Discover your next read with ease
         </p>
       </header>
+
+      <button
+            onClick={toggleTheme}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+      </button>
 
       <main className="max-w-5xl mx-auto px-6">
         <SearchBar onSearch={fetchBooks} />
@@ -45,6 +58,7 @@ const App = () => {
           &copy; 2024 Book Finder | Made with ❤️ by Eduru Venkata Sai Ganesh.
         </p>
       </footer>
+    </div>
     </div>
   );
 };
